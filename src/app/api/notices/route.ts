@@ -1,18 +1,28 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@/generated/prisma';
 
 const prisma = new PrismaClient();
 
 // 공지사항 조회 (GET)
-export async function GET() {
-  try {
-    const notices = await prisma.notice.findMany({
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const page = parseInt(searchParams.get('page') || '1', 10);
+  const limit = parseInt(searchParams.get('limit') || '10', 10);
+  const skip = (page - 1) * limit;
 
-    return NextResponse.json(notices);
+  try {
+    const [notices, totalCount] = await prisma.$transaction([
+      prisma.notice.findMany({
+        skip,
+        take: limit,
+        orderBy: {
+          createdAt: 'desc',
+        },
+      }),
+      prisma.notice.count(),
+    ]);
+
+    return NextResponse.json({ notices, totalCount });
   } catch (error) {
     console.error('공지사항 조회 중 오류:', error);
     return NextResponse.json(

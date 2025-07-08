@@ -61,19 +61,10 @@ export default function SolutionsPage() {
 
       {/* Hero Section */}
       <section className="h-[calc(screen/2)] py-24 flex flex-col items-center justify-center text-center px-4" style={{ background: 'linear-gradient(to top right, #ffffff 0%, #ffffff 70%, #B9B9B9 100%)' }}>
-        <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-6">가상서버 및 위탁 채굴 서비스</h1>
+        <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-12">가상서버 및 위탁 채굴 서비스</h1>
         <p className="max-w-xl text-sm md:text-base text-gray-600 leading-relaxed mb-12">
           신뢰할 수 있는 클라우드 인프라와 전문 채굴 솔루션으로<br />귀사의 디지털 자산을 안전하게 관리합니다.
         </p>
-
-        <div className="flex flex-col sm:flex-row gap-6">
-          <Link href="#" className="bg-[#04AAAB] hover:bg-[#039092] text-white font-semibold py-3 px-10 rounded-full shadow transition-colors text-sm md:text-base text-center">
-            기술 제안 요청
-          </Link>
-          <Link href="#" className="bg-gray-700 hover:bg-gray-800 text-white font-semibold py-3 px-10 rounded-full shadow transition-colors text-sm md:text-base text-center">
-            서비스 둘러보기
-          </Link>
-        </div>
       </section>
       
       {/* 서비스 카드 섹션 */}

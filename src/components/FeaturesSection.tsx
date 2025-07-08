@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { useRef } from 'react'
-import ContactModal from './ContactModal'; // 모달 컴포넌트 임포트
+import ContactModal from '@/components/ContactModal'; // 모달 컴포넌트 임포트
 
 export default function FeaturesSection() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -30,7 +30,7 @@ export default function FeaturesSection() {
       icon_title: "QCC",
       description: "퀀템체인의 기술과 활용 사례를 확인하세요.",
       icon: "/icon_features_5.png",
-      btn_description: "채굴 서비스 자세히 보기",
+      btn_description: "퀀텀체인 자세히 보기",
       url: "/qcc",
     },
     {
@@ -38,7 +38,7 @@ export default function FeaturesSection() {
       icon_title: "상담 신청하기",
       description: "궁금한 점을 빠르게 상담 받아보세요.",
       icon: "/icon_features_6.png",
-      btn_description: "채굴 서비스 자세히 보기",
+      btn_description: "상담 바로가기",
       url: "/about",
     },
     {
@@ -46,7 +46,7 @@ export default function FeaturesSection() {
       icon_title: "연락처 및 위치",
       description: "오시는 길과 연락처 정보를 확인하세요.",
       icon: "/icon_features_10.png",
-      btn_description: "자세히 보기", // 버튼 설명을 "자세히 보기"로 수정
+      btn_description: "바로가기", 
       action_type: 'modal', // 모달 액션 타입 추가
     }
   ]
@@ -73,11 +73,20 @@ export default function FeaturesSection() {
     container.scrollBy({ left: scrollAmount, behavior: 'smooth' })
   }
 
+  const handlePrev = () => {
+    const container = scrollRef.current
+    if (!container) return
+    const firstCard = container.querySelector('.feature-card') as HTMLElement | null
+    if (!firstCard) return
+    const scrollAmount = firstCard.offsetWidth + 24 // 카드 폭 + gap(1.5rem)
+    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' })
+  }
+
   const handleButtonClick = (feature: typeof features[0]) => {
     if (feature.action_type === 'modal') {
       setModalOpen(true);
     } else if (feature.url) {
-      window.open(feature.url, '_blank');
+      window.open(feature.url);
     }
   };
 
@@ -135,7 +144,7 @@ export default function FeaturesSection() {
                     className="w-16 h-16 object-contain"
                   />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-10">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
                 <button onClick={() => handleButtonClick(feature)} className='mt-auto w-full h-10 bg-white hover:bg-[#04AAAB] hover:text-white flex items-center px-4 rounded-lg font-semibold'>
                   {feature.btn_description}
@@ -149,12 +158,21 @@ export default function FeaturesSection() {
       <div className="absolute top-0 right-0 w-60 h-full pointer-events-none z-20"
         style={{
           background: 'linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 20%, rgba(255, 255, 255, 0.87) 50%, rgb(255, 255, 255) 100%, transparent 100%)'
-        }}></div>
+      }}/>
 
-      {/* 우측 이동 버튼 (페이드 위) */}
+      {/* 좌측 이동 버튼 */}
+      <button
+        onClick={handlePrev}
+        className="hidden md:flex text-xl font-semibold items-center justify-center absolute top-[64%] -translate-y-1/2 left-4 z-40 rounded-[10%] shadow-lg p-2 bg-[#04AAAB] text-white transition-colors w-10 h-10"
+        aria-label="이전 카드"
+      >
+        <span>&lt;</span>
+      </button>
+
+      {/* 우측 이동 버튼 */}
       <button
         onClick={handleNext}
-        className="hidden md:flex items-center justify-center absolute top-1/2 -translate-y-1/2 right-4 z-30 rounded-[10%] shadow-lg p-2 bg-[#04AAAB] text-white transition-colors w-10 h-10"
+        className="hidden md:flex text-xl font-semibold items-center justify-center absolute top-[64%] -translate-y-1/2 right-4 z-40 rounded-[10%] shadow-lg p-2 bg-[#04AAAB] text-white transition-colors w-10 h-10"
         aria-label="다음 카드"
       >
         <span>&gt;</span>

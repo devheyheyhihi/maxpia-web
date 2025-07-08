@@ -19,8 +19,11 @@ export default function QccPage() {
       <section className="min-h-screen flex flex-col md:flex-row items-center justify-center px-6 md:px-16 gap-12 py-24 md:py-0" style={{ background: 'linear-gradient(to top right, #030518 0%, #030518 60%, #0A124E 100%)' }}>
         {/* Left Content */}
         <div className="text-left text-white">
-          <h2 className="text-4xl md:text-5xl text-[#80B2FF] font-bold leading-relaxed mb-4">
-            퀀텀체인 (QuantumChain)<br />블록체인 플랫폼 소개
+          <h2 className="text-4xl md:text-5xl text-[#80B2FF] font-bold mb-5">
+            퀀텀체인 (QuantumChain)
+          </h2>
+          <h2 className="text-4xl md:text-5xl text-[#80B2FF] font-bold mb-10">
+            블록체인 플랫폼 소개
           </h2>
 
           <p className="text-lg leading-relaxed mb-10">
@@ -29,17 +32,6 @@ export default function QccPage() {
             2024년 8월 25일 출시된 퀀텀체인은 스마트 계약, 효율적 채굴, 분산 애플리케이션(dApp) 생태계 등을<br/>
             폭넓게 지원하며 미래 디지털 자산 생태계를 주도할 기반 기술로 주목받고 있습니다.
           </p>
-
-          <div className="space-y-4 w-full md:w-[80%] text-black font-semibold">
-            <button className="w-full flex items-center justify-between bg-gradient-to-r from-[#ffffff] to-[#999999] backdrop-blur-sm rounded-xl py-4 px-6 text-sm md:text-base hover:from-[#999999]">
-              Quantum Chain Block Explorer
-              <span className="text-xl">&rarr;</span>
-            </button>
-            <button className="w-full flex items-center justify-between bg-gradient-to-r from-[#ffffff] to-[#999999] backdrop-blur-sm rounded-xl py-4 px-6 text-sm md:text-base hover:from-[#999999]">
-              Quantum Chain
-              <span className="text-xl">&rarr;</span>
-            </button>
-          </div>
         </div>
 
         {/* Right Image */}
@@ -104,10 +96,10 @@ export default function QccPage() {
           {/* 우측 링크 카드 2x2 */}
           <div className="grid sm:grid-cols-2 gap-6">
             {[
-              { label: '공식 홈페이지', from: '#384093', to: '#1C1A6B' },
-              { label: '블록 탐색기', from: '#384093', to: '#18546E' },
-              { label: '웹지갑', from: '#384093', to: '#27B695' },
-              { label: '백서', from: '#384093', to: '#992B8C' },
+              { label: '공식 홈페이지', from: '#384093', to: '#1C1A6B', url: 'https://quantumchain.it/' },
+              { label: '블록 탐색기', from: '#384093', to: '#18546E', url: 'https://explorer.quantumchain.it/' },
+              { label: '웹지갑', from: '#384093', to: '#27B695', url: 'https://wallet.quantumchain.it/' },
+              { label: '백서', from: '#384093', to: '#992B8C', url: 'https://quantumchain.it/whitepaper.pdf' },
             ].map((card, idx) => (
               <div
                 key={idx}
@@ -120,7 +112,7 @@ export default function QccPage() {
                   <Image src="/icon_2_qcc_section_3.png" alt="icon" width={60} height={60} />
                   <span className="text-sm">{card.label}</span>
                 </div>
-                <button className="w-full bg-[#171717] text-white text-xs py-2">바로가기</button>
+                <button className="w-full bg-[#171717] text-white text-xs py-2" onClick={() => window.open(card.url, '_blank')}>바로가기</button>
               </div>
             ))}
           </div>

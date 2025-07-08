@@ -10,13 +10,13 @@ export default function HeroSection() {
       </div>
       <div className="w-full h-[40%] flex items-center justify-center">
         <video 
-          className="w-[40%] h-auto object-cover rounded-lg"
+          className="w-[23%] h-auto object-cover rounded-lg"
           autoPlay 
           muted 
           loop 
           playsInline
         >
-          <source src="/test2.webm" type="video/webm" />
+          <source src="/banner_hero.webm" type="video/webm" />
           Your browser does not support the video tag.
         </video>
       </div>

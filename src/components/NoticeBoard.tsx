@@ -7,13 +7,28 @@ import Link from 'next/link';
 
 interface NoticeBoardProps {
   notices: Notice[];
+  totalCount: number;
+  itemsPerPage: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
   onEdit?: (notice: Notice) => void;
   onDelete?: (noticeId: number) => void;
   showActions?: boolean;
 }
 
-export default function NoticeBoard({ notices, onEdit, onDelete, showActions = false }: NoticeBoardProps) {
+export default function NoticeBoard({ 
+  notices, 
+  totalCount,
+  itemsPerPage,
+  currentPage,
+  onPageChange,
+  onEdit, 
+  onDelete, 
+  showActions = false 
+}: NoticeBoardProps) {
   const [activeTab, setActiveTab] = useState(0);
+
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
 
   const handleDelete = async (noticeId: number) => {
     if (!onDelete) return;
@@ -95,10 +110,17 @@ export default function NoticeBoard({ notices, onEdit, onDelete, showActions = f
            </div>
         )}
 
-        {/* 페이지네이션 (일단 기능 없이 UI만 유지) */}
-        <div className="flex justify-center mt-8 gap-4 text-sm text-gray-500">
-          {[1, 2, 3, 4, 5].map(n => (<button key={n} className={`w-6 h-6 flex items-center justify-center ${n === 1 ? 'text-[#04AAAB] font-semibold' : 'hover:text-[#04AAAB]'}`}>{n}</button>))}
-          <span className="w-6 h-6 flex items-center justify-center">&gt;</span>
+        {/* 페이지네이션 */}
+        <div className="flex justify-center mt-8 gap-2 text-sm text-gray-500">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map(n => (
+            <button 
+              key={n} 
+              onClick={() => onPageChange(n)}
+              className={`w-8 h-8 flex items-center justify-center rounded-full ${n === currentPage ? 'bg-[#04AAAB] text-white font-semibold' : 'hover:bg-gray-100'}`}
+            >
+              {n}
+            </button>
+          ))}
         </div>
       </div>
     </section>

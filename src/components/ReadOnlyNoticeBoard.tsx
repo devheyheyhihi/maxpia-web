@@ -7,10 +7,22 @@ import Link from 'next/link';
 
 interface ReadOnlyNoticeBoardProps {
   notices: Notice[];
+  totalCount: number;
+  itemsPerPage: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 }
 
-export default function ReadOnlyNoticeBoard({ notices }: ReadOnlyNoticeBoardProps) {
+export default function ReadOnlyNoticeBoard({ 
+  notices,
+  totalCount,
+  itemsPerPage,
+  currentPage,
+  onPageChange
+}: ReadOnlyNoticeBoardProps) {
   const [activeTab, setActiveTab] = useState(0);
+
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
 
   return (
     <section className="relative px-4 py-24">
@@ -50,17 +62,19 @@ export default function ReadOnlyNoticeBoard({ notices }: ReadOnlyNoticeBoardProp
         {activeTab === 0 && (
           <div className="border-t-2 border-gray-200">
             {notices.map((notice, idx) => (
-              <div key={notice.id} className="grid grid-cols-12 text-sm py-4 border-b border-gray-100 hover:bg-gray-50 items-center">
+              <Link
+                href={`/notice/${notice.id}`}
+                key={notice.id}
+                className="grid grid-cols-12 text-sm py-4 border-b border-gray-100 hover:bg-gray-50 items-center cursor-pointer"
+              >
                 <div className="col-span-1 text-center text-gray-400">{notices.length - idx}</div>
                 <div className="col-span-9 truncate px-2 text-gray-700">
-                  <Link href={`/notice/${notice.id}`} className="hover:text-[#04AAAB]">
-                    {notice.title}
-                  </Link>
+                  {notice.title}
                 </div>
                 <div className="col-span-2 text-right text-gray-400 pr-4">
                   {new Date(notice.createdAt).toLocaleDateString()}
                 </div>
-              </div>
+              </Link>
             ))}
             {notices.length === 0 && (
               <div className="text-center py-10 text-gray-500">게시물이 없습니다.</div>
@@ -74,6 +88,19 @@ export default function ReadOnlyNoticeBoard({ notices }: ReadOnlyNoticeBoardProp
             <div className="text-center py-10 text-gray-500">뉴스가 없습니다.</div>
           </div>
         )}
+
+        {/* 페이지네이션 */}
+        <div className="flex justify-center mt-8 gap-2 text-sm text-gray-500">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map(n => (
+            <button 
+              key={n} 
+              onClick={() => onPageChange(n)}
+              className={`w-8 h-8 flex items-center justify-center rounded-full ${n === currentPage ? 'bg-[#04AAAB] text-white font-semibold' : 'hover:bg-gray-100'}`}
+            >
+              {n}
+            </button>
+          ))}
+        </div>
       </div>
     </section>
   );

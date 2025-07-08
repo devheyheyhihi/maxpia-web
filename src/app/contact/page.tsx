@@ -9,18 +9,23 @@ import { Notice } from '@/generated/prisma';
 
 export default function ContactPage() {
   const [notices, setNotices] = useState<Notice[]>([]);
+  const [totalNotices, setTotalNotices] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const noticesPerPage = 10;
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchNotices();
-  }, []);
+    fetchNotices(currentPage);
+  }, [currentPage]);
 
-  const fetchNotices = async () => {
+  const fetchNotices = async (page: number) => {
+    setLoading(true);
     try {
-      const response = await fetch('/api/notices');
+      const response = await fetch(`/api/notices?page=${page}&limit=${noticesPerPage}`);
       if (response.ok) {
         const data = await response.json();
-        setNotices(data);
+        setNotices(data.notices);
+        setTotalNotices(data.totalCount);
       } else {
         console.error('공지사항 데이터를 불러오는 중 오류가 발생했습니다.');
       }
@@ -29,6 +34,10 @@ export default function ContactPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -78,7 +87,13 @@ export default function ContactPage() {
       {loading ? (
         <div className="text-center py-10">공지사항을 불러오는 중...</div>
       ) : (
-        <ReadOnlyNoticeBoard notices={notices} />
+        <ReadOnlyNoticeBoard 
+          notices={notices}
+          totalCount={totalNotices}
+          itemsPerPage={noticesPerPage}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
       )}
     </div>
   );

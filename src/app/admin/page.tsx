@@ -28,6 +28,10 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<'inquiries' | 'notices'>('inquiries');
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [notices, setNotices] = useState<Notice[]>([]);
+  const [totalNotices, setTotalNotices] = useState(0);
+  const [currentNoticePage, setCurrentNoticePage] = useState(1);
+  const noticesPerPage = 10;
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
@@ -37,9 +41,9 @@ export default function AdminPage() {
   useEffect(() => {
     if (isAuthenticated) {
       fetchInquiries();
-      fetchNotices();
+      fetchNotices(currentNoticePage);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, currentNoticePage]);
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,12 +71,13 @@ export default function AdminPage() {
     }
   };
 
-  const fetchNotices = async () => {
+  const fetchNotices = async (page: number) => {
     try {
-      const response = await fetch('/api/notices');
+      const response = await fetch(`/api/notices?page=${page}&limit=${noticesPerPage}`);
       if (response.ok) {
         const data = await response.json();
-        setNotices(data);
+        setNotices(data.notices);
+        setTotalNotices(data.totalCount);
       } else {
         console.error('공지사항 데이터를 불러오는 중 오류가 발생했습니다.');
       }
@@ -81,9 +86,13 @@ export default function AdminPage() {
     }
   };
 
+  const handleNoticePageChange = (page: number) => {
+    setCurrentNoticePage(page);
+  };
+  
   const handleCloseCreateModal = () => {
     setCreateModalOpen(false);
-    fetchNotices(); // 공지사항 목록 새로고침
+    fetchNotices(currentNoticePage); // 공지사항 목록 새로고침
   };
 
   const handleEditNotice = (notice: Notice) => {
@@ -98,7 +107,7 @@ export default function AdminPage() {
       });
 
       if (response.ok) {
-        fetchNotices(); // 목록 새로고침
+        fetchNotices(currentNoticePage); // 목록 새로고침
       } else {
         const errorData = await response.json();
         alert(errorData.error || '공지사항 삭제 중 오류가 발생했습니다.');
@@ -111,7 +120,7 @@ export default function AdminPage() {
   const handleCloseEditModal = () => {
     setEditModalOpen(false);
     setSelectedNotice(null);
-    fetchNotices(); // 공지사항 목록 새로고침
+    fetchNotices(currentNoticePage); // 공지사항 목록 새로고침
   };
 
   const handleCompleteInquiry = async (inquiryId: number) => {
@@ -360,8 +369,12 @@ export default function AdminPage() {
                 </button>
               </div>
               
-              <NoticeBoard 
-                notices={notices} 
+              <NoticeBoard
+                notices={notices}
+                totalCount={totalNotices}
+                itemsPerPage={noticesPerPage}
+                currentPage={currentNoticePage}
+                onPageChange={handleNoticePageChange}
                 onEdit={handleEditNotice}
                 onDelete={handleDeleteNotice}
                 showActions={true}
