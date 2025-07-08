@@ -1,0 +1,127 @@
+/* [project]/src/components/Tiptap.css [app-client] (css) */
+.editor-container {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  flex-direction: column;
+  height: 100%;
+  min-height: 300px;
+  display: flex;
+  overflow: hidden;
+}
+
+.editor-toolbar {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ccc;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  gap: 4px;
+  padding: 8px;
+  display: flex;
+}
+
+.editor-toolbar button {
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
+.editor-toolbar button.is-active {
+  color: #fff;
+  background-color: #04aaab;
+  border-color: #038a8a;
+}
+
+.tiptap {
+  flex-grow: 1;
+  min-height: 0;
+  padding: 16px;
+  line-height: 1.6;
+  overflow-y: auto;
+}
+
+.tiptap:focus {
+  outline: none;
+}
+
+.ProseMirror {
+  outline: none;
+  min-height: 200px;
+  padding: 1rem;
+}
+
+.ProseMirror p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.ProseMirror h1 {
+  font-size: 2em !important;
+  font-weight: bold !important;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5em !important;
+  font-weight: bold !important;
+}
+
+.ProseMirror > * + * {
+  margin-top: .75em;
+}
+
+.ProseMirror ul, .ProseMirror ol {
+  padding-left: 2rem;
+}
+
+.ProseMirror ul {
+  list-style-type: disc;
+}
+
+.ProseMirror ol {
+  list-style-type: decimal;
+}
+
+.ProseMirror h1, .ProseMirror h2, .ProseMirror h3 {
+  line-height: 1.1;
+}
+
+.ProseMirror code {
+  color: #616161;
+  background-color: #6161611a;
+}
+
+.ProseMirror pre {
+  color: #fff;
+  background: #0d0d0d;
+  border-radius: .5rem;
+  padding: .75rem 1rem;
+  font-family: JetBrainsMono, monospace;
+}
+
+.ProseMirror pre code {
+  color: inherit;
+  background: none;
+  padding: 0;
+  font-size: .8rem;
+}
+
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+}
+
+.ProseMirror blockquote {
+  border-left: 2px solid #0d0d0d1a;
+  padding-left: 1rem;
+}
+
+.ProseMirror hr {
+  border: none;
+  border-top: 2px solid #0d0d0d1a;
+  margin: 2rem 0;
+}
+
+
+/*# sourceMappingURL=src_components_Tiptap_c14f20e4.css.map*/
