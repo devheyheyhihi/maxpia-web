@@ -4,9 +4,9 @@ import { notFound } from 'next/navigation';
 import '@/components/Tiptap.css'; // 에디터의 CSS 파일을 불러옵니다.
 
 interface NoticeDetailPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 async function getNotice(id: string) {
@@ -30,7 +30,8 @@ async function getNotice(id: string) {
 
 
 export default async function NoticeDetailPage({ params }: NoticeDetailPageProps) {
-  const notice = await getNotice(params.id);
+  const { id } = await params;
+  const notice = await getNotice(id);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">

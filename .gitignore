@@ -3,3 +3,4 @@ node_modules
 .env
 
 /src/generated/prisma
+\n# Next.js build output\n.next/\n\n# Log files\nlogs/\n\n# PM2 configuration\necosystem.config.js\n\n# Environment variables\n.env\n
