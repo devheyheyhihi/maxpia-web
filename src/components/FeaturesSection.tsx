@@ -1,80 +1,53 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { useRef } from 'react'
+import ContactModal from './ContactModal'; // 모달 컴포넌트 임포트
 
 export default function FeaturesSection() {
+  const [isModalOpen, setModalOpen] = useState(false);
+
   const features = [
     {
       title: "회사소개",
       icon_title: "회사소개",
       description: "맥스피아아이시티의 비전과 핵심 가치를 확인해보세요.",
       icon: "/icon_features_1.png",
-      btn_description: "회사 소개 더 알아보기"
+      btn_description: "회사 소개 더 알아보기",
+      url: "/about",
     },
     {
       title: "솔루션",
       icon_title: "솔루션",
       description: "다양한 블록체인 기술 솔루션을 소개합니다.",
       icon: "/icon_features_2.png",
-      btn_description: "솔루션 자세히 보기"
-    },
-    {
-      title: "채굴 서비스 문의하기",
-      icon_title: "채굴서비스",
-      description: "안전하고 효율적인 채굴 서비스를 상담해보세요.",
-      icon: "/icon_features_3.png",
-      btn_description: "채굴 서비스 자세히 보기"
-    },
-    {
-      title: "프로젝트 파트너십 제안하기",
-      icon_title: "프로젝트",
-      description: "협업을 통한 블록체인 프로젝트 제안을 기다립니다.",
-      icon: "/icon_features_4.png",
-      btn_description: "채굴 서비스 자세히 보기"
+      btn_description: "솔루션 자세히 보기",
+      url: "/solutions",
     },
     {
       title: "퀀텀체인(QCC) 알아보기",
       icon_title: "QCC",
       description: "퀀템체인의 기술과 활용 사례를 확인하세요.",
       icon: "/icon_features_5.png",
-      btn_description: "채굴 서비스 자세히 보기"
+      btn_description: "채굴 서비스 자세히 보기",
+      url: "/qcc",
     },
     {
       title: "지금 상담 신청하기",
       icon_title: "상담 신청하기",
       description: "궁금한 점을 빠르게 상담 받아보세요.",
       icon: "/icon_features_6.png",
-      btn_description: "채굴 서비스 자세히 보기"
-    },
-    {
-      title: "맞춤형 블록체인 컨설팅 받기",
-      icon_title: "컨설팅 받기",
-      description: "귀사에 맞는 블록체인 전략을 제안합니다.",
-      icon: "/icon_features_7.png",
-      btn_description: "채굴 서비스 자세히 보기"
-    },
-    {
-      title: "투자 및 협업 문의",
-      icon_title: "투자 및 협업",
-      description: "투자 및 공동사업에 대해 문의해주세요.",
-      icon: "/icon_features_8.png",
-      btn_description: "채굴 서비스 자세히 보기"
-    },
-    {
-      title: "기술 백서 다운로드",
-      icon_title: "기술 백서",
-      description: "퀀텀체인의 핵심 기술 자료를 받아보세요.",
-      icon: "/icon_features_9.png",
-      btn_description: "자료 다운로드"
+      btn_description: "채굴 서비스 자세히 보기",
+      url: "/about",
     },
     {
       title: "연락처 및 위치 보기",
       icon_title: "연락처 및 위치",
       description: "오시는 길과 연락처 정보를 확인하세요.",
       icon: "/icon_features_10.png",
-      btn_description: "채굴 서비스 자세히 보기"
+      btn_description: "자세히 보기", // 버튼 설명을 "자세히 보기"로 수정
+      action_type: 'modal', // 모달 액션 타입 추가
     }
   ]
 
@@ -99,6 +72,14 @@ export default function FeaturesSection() {
     const scrollAmount = firstCard.offsetWidth + 24 // 카드 폭 + gap(1.5rem)
     container.scrollBy({ left: scrollAmount, behavior: 'smooth' })
   }
+
+  const handleButtonClick = (feature: typeof features[0]) => {
+    if (feature.action_type === 'modal') {
+      setModalOpen(true);
+    } else if (feature.url) {
+      window.open(feature.url, '_blank');
+    }
+  };
 
   return (
     <section 
@@ -156,9 +137,9 @@ export default function FeaturesSection() {
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
-                <p className='mt-auto w-full h-10 bg-white hover:bg-[#04AAAB] hover:text-white flex items-center px-4 rounded-lg font-semibold'>
+                <button onClick={() => handleButtonClick(feature)} className='mt-auto w-full h-10 bg-white hover:bg-[#04AAAB] hover:text-white flex items-center px-4 rounded-lg font-semibold'>
                   {feature.btn_description}
-                </p>
+                </button>
               </div>
             ))}
           </div>
@@ -178,6 +159,7 @@ export default function FeaturesSection() {
       >
         <span>&gt;</span>
       </button>
+      <ContactModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
     </section>
   )
 } 
