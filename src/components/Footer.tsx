@@ -56,18 +56,14 @@ export default function Footer() {
 
         {/* Contact */}
         <div className="md:col-span-3">
-          <h4 className="font-semibold text-gray-900 mb-4 pl-2">연락처</h4>
+          <h4 className="font-semibold text-gray-900 mb-4 pl-2">위치 및 연락처</h4>
           <div className="flex items-center text-sm text-gray-700 mb-2">
             <Image src="/icon_location.svg" alt="주소" width={16} height={16} className="mr-2" />
             경기도 광주시 도척면 도척윗로 452
           </div>
-          <div className="flex items-center text-sm text-gray-700 mb-2">
-            <Image src="/icon_phone.svg" alt="전화" width={16} height={16} className="mr-2" />
-            070.4157.1666
-          </div>
           <div className="flex items-center text-sm text-gray-700">
             <Image src="/icon_email.svg" alt="이메일" width={16} height={16} className="mr-2" />
-            maxhelp@naver.com
+            maxpiah@naver.com
           </div>
         </div>
       </div>
