@@ -39,7 +39,8 @@ export default function FeaturesSection() {
       description: "궁금한 점을 빠르게 상담 받아보세요.",
       icon: "/icon_features_6.png",
       btn_description: "상담 바로가기",
-      url: "/about",
+      action_type: 'scroll', // 스크롤 액션 타입으로 변경
+      target: 'contact' // 스크롤할 대상 섹션 ID 추가
     },
     {
       title: "연락처 및 위치 보기",
@@ -85,8 +86,13 @@ export default function FeaturesSection() {
   const handleButtonClick = (feature: typeof features[0]) => {
     if (feature.action_type === 'modal') {
       setModalOpen(true);
+    } else if (feature.action_type === 'scroll' && feature.target) {
+      const targetElement = document.getElementById(feature.target);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
     } else if (feature.url) {
-      window.open(feature.url);
+      window.location.href = feature.url;
     }
   };
 
