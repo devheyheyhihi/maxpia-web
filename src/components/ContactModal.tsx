@@ -29,7 +29,6 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
             <h3 className="font-semibold text-lg mb-4">회사 정보</h3>
             <ul className="space-y-3 text-gray-700">
               <li><strong>주소:</strong> 경기도 광주시 도척면 도척윗로 452</li>
-              <li><strong>연락처:</strong> 070-4157-1666</li>
               <li><strong>email:</strong> maxhelp@naver.com</li>
             </ul>
           </div>
