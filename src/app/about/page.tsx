@@ -68,7 +68,7 @@ export default function AboutPage() {
     { title: '기술 혁신 (Innovation)', desc: `연구 개발, 블록체인, 보안을 지속적으로 개발로써 새로운 성장 추구`, icon: '/icon_innovation.png' },
     { title: '투명성 (Transparency )', desc: `실시간 데이터 모니터링, 투명한 재무 환경으로 블록체인 솔루션의 운영 철학 정립`, icon: '/icon_transparency.png' },
     { title: '전문성 (Expertise)', desc: `분야별 전문 인력을 체계적인 시스템으로 통합하여 맞춤형 고품질 서비스 제공`, icon: '/icon_expertise.png' },
-    { title: '고객중심 (Customer Focus )', desc: `맞춤형 솔루션 컨설팅 제공 및 지속적인 고객지원과 CS 강화`, icon: '/icon_customer.png' },
+    { title: '고객중심 (Customer Centric )', desc: `맞춤형 솔루션 컨설팅 제공 및 지속적인 고객지원과 CS 강화`, icon: '/icon_customer.png' },
     { title: '글로벌 지향 (Global Vision )', desc: `국내·해외를 연결하고 세계화 전략 안착으로 글로벌 시장 진출 가속화`, icon: '/icon_global.png' },
   ]
 
